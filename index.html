@@ -11,6 +11,7 @@
         THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
     </script>
     <script src="places.js"></script>
+    
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
@@ -19,6 +20,12 @@
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
     <a-camera gps-camera="minDistance: 40;" rotation-reader></a-camera>
+    <div style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
+        <input type="button" id="set-location" value="SET LOCATION">
+    </div>
 </a-scene>
+    
+
+<script src="marking.js"></script>
 </body>
 

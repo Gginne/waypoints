@@ -1,4 +1,4 @@
-function loadPlaces(position) {
+ function loadPlaces(position) {
     const params = {
         radius: 300,    // search places not farther than this value (in meters)
         clientId: 'XQ3Y2UC3YSXJS2KEM0XB1R4ZD3MTLPLQN01OLV15KTUQLOUQ',
@@ -17,6 +17,8 @@ function loadPlaces(position) {
         &client_secret=${params.clientSecret}
         &limit=30 
         &v=${params.version}`;
+
+    
     return fetch(endpoint)
         .then((res) => {
             return res.json()
@@ -32,10 +34,11 @@ function loadPlaces(position) {
 
 window.onload = () => {
     const scene = document.querySelector('a-scene');
-
+    
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
 
+        
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
@@ -43,10 +46,10 @@ window.onload = () => {
                     const latitude = place.location.lat;
                     const longitude = place.location.lng;
 
-                    // add place name
+                    // Add place tage name & coordinates
                     const placeText = document.createElement('a-link');
                     placeText.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-                    placeText.setAttribute('title', `${place.name}\nlat:${latitude} long:${longitude}`);
+                    placeText.setAttribute('title', `${place.name}\n lat:${latitude} long:${longitude}`);
                     placeText.setAttribute('scale', '15 15 15');
                     
                     placeText.addEventListener('loaded', () => {
@@ -64,4 +67,8 @@ window.onload = () => {
             timeout: 27000,
         }
     );
+
+    
 };
+
+
