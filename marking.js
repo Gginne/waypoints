@@ -1,14 +1,22 @@
+const set_loc = document.querySelector('#set-location');
 const scene = document.querySelector("a-scene");
-
-const set_loc = document.querySelector("#set-location")
-
-var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
+window.onload = () => {
   
-  function success(pos) {
+  return navigator.geolocation.getCurrentPosition(function(pos){
+    logPlaces(pos)
+  },
+  (err) => console.error('Error in retrieving position', err),
+  {
+    enableHighAccuracy: true,
+    maximumAge: 0,
+    timeout: 27000,
+  }
+  
+  )
+  
+};
+
+  function logPlaces(pos) {
     var crd = pos.coords;
   
     set_loc.addEventListener("click", function(){
@@ -33,4 +41,3 @@ var options = {
   }
   
 
-  navigator.geolocation.getCurrentPosition(success, error, options);
