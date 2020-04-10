@@ -1,36 +1,28 @@
-const scene = document.querySelector("a-scene");
+navigator.geolocation.getCurrentPosition(function(pos){
 
-const set_loc = document.querySelector("#set-location")
+  const scene = document.querySelector('a-scene');
+  const set_loc = document.querySelector("#set-location");
 
-var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
+  set_loc.addEventListener("click", function(){
+
+    let latitude = pos.coords.latitude
+    let longitude = pos.coords.longitude
   
-  function success(pos) {
-    var crd = pos.coords;
+    let marker = document.createElement('a-link');
+    marker.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+    marker.setAttribute('title', `here\n lat:${latitude} long:${longitude}`);
+    marker.setAttribute('scale', '15 15 15');
+    marker.setAttribute('animation-mixer', '');
+    
+    marker.addEventListener('loaded', () => {
+        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+    });
   
-    set_loc.addEventListener("click", function(){
-        const placeText = document.createElement('a-link');
-        placeText.setAttribute('gps-entity-place', `latitude: ${crd.latitude}; longitude: ${crd.longitude};`);
-        placeText.setAttribute('title', `here\n lat:${crd.latitude} long:${crd.longitude}`);
-        placeText.setAttribute('scale', '15 15 15');
-        
-        placeText.addEventListener('loaded', () => {
-            window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-        });
+    scene.appendChild(marker);
+    console.log(marker)
+   
+  })
 
-        scene.appendChild(placeText);
-        console.log(placeText)
-     
-    })
+})
 
-  }
-  
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-  
 
-  navigator.geolocation.getCurrentPosition(success, error, options);
