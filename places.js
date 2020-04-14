@@ -1,4 +1,4 @@
- function loadPlaces(position) {
+async function loadPlaces(position) {
     const params = {
         radius: 200,    // search places not farther than this value (in meters)
         clientId: 'XQ3Y2UC3YSXJS2KEM0XB1R4ZD3MTLPLQN01OLV15KTUQLOUQ',
@@ -15,16 +15,15 @@
         &radius=${params.radius}
         &client_id=${params.clientId}
         &client_secret=${params.clientSecret}
-        &limit=15
+        &limit=20
         &v=${params.version}`;
 
     
-    return fetch(endpoint)
-        .then((res) => res.json())
-        .then((resp) => resp.response.venues)
-        .catch((err) => {
-            console.error('Error with places API', err);
-        })
+    const req = await fetch(endpoint)
+    const resp = await req.json()
+    const data = await resp.response.venues
+    return data;
+
 };
 
 
