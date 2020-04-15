@@ -1,4 +1,4 @@
-window.onload = () => {
+
   let scene = document.querySelector('a-scene');
   const set_loc = document.querySelector("#set-location");
 
@@ -20,4 +20,3 @@ window.onload = () => {
     })
 
   })
-}
