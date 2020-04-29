@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -12,22 +13,41 @@
         THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
     </script>
     <script src="places.js"></script>
-    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
     <div class="centered"></div>
-    <a-scene 
-        vr-mode-ui='enabled: false' 
-        embedded
+    <a-scene vr-mode-ui='enabled: false' embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
-    <a-camera gps-camera="minDistance: 40;" rotation-reader></a-camera>
-  
-</a-scene>
-<div class="centered">
-    <button id="set-location">+</button>
-</div>
+        <a-camera gps-camera="minDistance: 40;" rotation-reader></a-camera>
 
-<script src="marking.js"></script>
+    </a-scene>
+    <div class="centered">
+        <button id="set-location">+</button>
+    </div>
+
+    <script src="marking.js"></script>
+
+
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyD8PbxJZKp-euZKE7sFNLQpXUgUQhvjloc",
+            authDomain: "waypoints-1a985.firebaseapp.com",
+            databaseURL: "https://waypoints-1a985.firebaseio.com",
+            projectId: "waypoints-1a985",
+            storageBucket: "waypoints-1a985.appspot.com",
+            messagingSenderId: "401389238880",
+            appId: "1:401389238880:web:06704111b6a07cd51ea105",
+            measurementId: "G-C54R21BJWM"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 </body>
-

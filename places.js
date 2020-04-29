@@ -15,7 +15,7 @@ async function loadPlaces(position) {
         &radius=${params.radius}
         &client_id=${params.clientId}
         &client_secret=${params.clientSecret}
-        &limit=20
+        &limit=10
         &v=${params.version}`;
 
     
@@ -52,8 +52,32 @@ window.onload = () => {
                     });
 
                     scene.appendChild(placeText);
+                    console.log(`latitude: ${latitude}; longitude: ${longitude};`)
+                    
                 });
             })
+
+            db.collection('Locations').get().then(snapshot => {
+                snapshot.docs.forEach(doc => {
+        
+                    const latitude = doc.data().coordinates.Pc;
+                    const longitude = doc.data().coordinates.Vc;
+        
+                    // Add place tage name & coordinates
+                    const placeText = document.createElement('a-link');
+                    placeText.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+                    placeText.setAttribute('title', `${doc.data().name}`);
+                    placeText.setAttribute('scale', '15 15 15');
+        
+                    placeText.addEventListener('loaded', () => {
+                        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+                    });
+        
+                    scene.appendChild(placeText);
+                    console.log(`latitude: ${latitude}; longitude: ${longitude};`)
+                });
+            })
+        
     },
         (err) => console.error('Error in retrieving position', err),
         {

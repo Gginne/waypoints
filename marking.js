@@ -11,12 +11,19 @@
     
       const marker = document.createElement('a-link');
       marker.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-      marker.setAttribute('title', `here\n lat:${latitude} long:${longitude}`);
+      marker.setAttribute('title', `Here\n lat:${latitude} long:${longitude}`);
       marker.setAttribute('scale', '15 15 15');
 
       scene.appendChild(marker);
-      console.log(marker)
+
+      db.collection('Locations').get().then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          const latitude = doc.data().coordinates.Pc;
+          const longitude = doc.data().coordinates.Vc;
+          console.log(latitude, longitude)
+        });
+      })
     
     })
-
+   
   })
