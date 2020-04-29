@@ -74,7 +74,7 @@ window.onload = () => {
                     });
         
                     scene.appendChild(placeText);
-                    console.log(`latitude: ${latitude}; longitude: ${longitude};`)
+                    console.log(placeText)
                 });
             })
         

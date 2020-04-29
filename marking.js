@@ -8,22 +8,13 @@
 
       const latitude = pos.coords.latitude
       const longitude = pos.coords.longitude
-    
-      const marker = document.createElement('a-link');
-      marker.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-      marker.setAttribute('title', `Here\n lat:${latitude} long:${longitude}`);
-      marker.setAttribute('scale', '15 15 15');
 
-      scene.appendChild(marker);
-
-      db.collection('Locations').get().then(snapshot => {
-        snapshot.docs.forEach(doc => {
-          const latitude = doc.data().coordinates.Pc;
-          const longitude = doc.data().coordinates.Vc;
-          console.log(latitude, longitude)
-        });
+      db.collection('Locations').add({
+        name: prompt("New Location Name:"),
+        coordinates: new firebase.firestore.GeoPoint(latitude, longitude)
       })
-    
+      
     })
    
   })
+ 
