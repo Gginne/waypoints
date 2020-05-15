@@ -42,17 +42,15 @@ window.onload = () => {
                     const longitude = place.location.lng;
 
                     // Add place tage name & coordinates
-                    const placeText = document.createElement('a-link');
-                    placeText.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-                    placeText.setAttribute('title', `${place.name}`);
-                    placeText.setAttribute('scale', '15 15 15');
-                    
-                    placeText.addEventListener('loaded', () => {
+                    const marker = new Marker(place.name, latitude, longitude)
+                    const tag = marker.render();
+
+                    tag.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
 
-                    scene.appendChild(placeText);
-                    console.log(`latitude: ${latitude}; longitude: ${longitude};`)
+                    scene.appendChild(tag);
+                    
                     
                 });
             })
@@ -63,18 +61,16 @@ window.onload = () => {
                     const latitude = doc.data().coordinates.Pc;
                     const longitude = doc.data().coordinates.Vc;
         
-                    // Add place tage name & coordinates
-                    const placeText = document.createElement('a-link');
-                    placeText.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-                    placeText.setAttribute('title', `${doc.data().name}`);
-                    placeText.setAttribute('scale', '15 15 15');
-        
-                    placeText.addEventListener('loaded', () => {
+                    // Add place tag name & coordinates
+                    const marker = new Marker(doc.data().name, latitude, longitude)
+                    const tag = marker.render();
+
+                    tag.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
         
-                    scene.appendChild(placeText);
-                    console.log(placeText)
+                    scene.appendChild(tag);
+                  
                 });
             })
         
